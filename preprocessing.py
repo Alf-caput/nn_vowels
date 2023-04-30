@@ -18,6 +18,7 @@ def main():
                 mouth_frame = get_mouth_frame(face_frame, mouth_detector)
                 if mouth_frame is not None:
                     print("mouth found")
+                    convert_mnist(mouth_frame, 'target.csv')
                 else:
                     print("No mouths found")
             else:
@@ -87,6 +88,25 @@ def get_mouth_frame(face_frame, mouth_detector):
     else:
         mouth_frame = None
     return mouth_frame
+
+
+def convert_mnist(frame, file_path):
+    # Preprocess the frame
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    resized = cv2.resize(gray, (28, 28))
+
+    # Invert the colors of the image, opencv works in BGR
+    inverted = cv2.bitwise_not(resized)
+
+    # Flatten the image
+    flat = inverted.reshape((1, 784))
+
+    # Normalize the pixel values
+    normalized = flat / 255.0
+
+    # Save the image as a CSV file in MNIST format
+    np.savetxt(file_path, normalized, delimiter=',')
+    return
 
 
 if __name__ == '__main__':
