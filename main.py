@@ -7,14 +7,14 @@ def main():
     face_detector = cv2.CascadeClassifier(r'haar_tools/haarcascade_frontalface_default.xml')
     mouth_detector = cv2.CascadeClassifier(r'haar_tools/mouth.xml')
     file_path = 0
-
+    vowels = {1: 'a', 2: 'e', 3: 'i', 4: 'o', 5: 'u'}
     loaded_model = tf.keras.models.load_model('nn_model')
-    facial_capture(loaded_model, face_detector, mouth_detector, file_path)
+    facial_capture(loaded_model, vowels, face_detector, mouth_detector, file_path)
 
     return 0
 
 
-def facial_capture(loaded_model, face_detector, mouth_detector, file_path=0):
+def facial_capture(loaded_model, vowels, face_detector, mouth_detector, file_path=0):
     capture = cv2.VideoCapture(file_path)
     while capture.isOpened() and cv2.waitKey(1) not in (ord('s'), ord('S')):  # While 's' or 'S' not pressed
         read_successfully, main_frame = capture.read()
@@ -26,8 +26,8 @@ def facial_capture(loaded_model, face_detector, mouth_detector, file_path=0):
                 if mouth_frame is not None:
                     print("mouth found")
                     target = to_nn_input(mouth_frame)
-                    prediction = loaded_model.predict(target)
-                    print("Mi predicción es:", prediction)
+                    prediction = np.argmax(loaded_model.predict(target), axis=1)[0]
+                    print("Mi predicción es:", vowels[prediction])
                 else:
                     print("No mouths found")
             else:
