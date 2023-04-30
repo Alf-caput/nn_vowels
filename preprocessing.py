@@ -100,11 +100,12 @@ def convert_mnist(frame, file_path):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     resized = cv2.resize(gray, (28, 28))
 
-    # Invert the colors of the image, opencv works in BGR
-    inverted = cv2.bitwise_not(resized)
+    # Invert the colors of the image
+    # inverted = cv2.bitwise_not(resized)
 
     # Flatten the image
-    flat = inverted.reshape((1, 784))
+    # flat = inverted.reshape((1, 784))
+    flat = resized.reshape((1, 784))
 
     # Normalize the pixel values
     normalized = flat / 255.0
