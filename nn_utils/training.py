@@ -25,6 +25,6 @@ model = tf.keras.Sequential([
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 # Model training
-model.fit(dataset, epochs=28)
+model.fit(dataset, epochs=200)
 
 model.save('../nn_model')
