@@ -20,7 +20,6 @@ def main():
                 if mouth_frame is not None:
                     print("mouth found")
                     convert_mnist(mouth_frame, 'target.csv')
-                    disp_mnist('target.csv')
                 else:
                     print("No mouths found")
             else:
@@ -108,20 +107,6 @@ def convert_mnist(frame, file_path):
 
     # Save the image as a CSV file in MNIST format
     np.savetxt(file_path, normalized, delimiter=',')
-    return
-
-
-def disp_mnist(file_path):
-    # Load the image from CSV file
-    data = np.genfromtxt(file_path, delimiter=',')
-
-    # Reshape the flattened pixel values to a 28x28 matrix
-    image = data.reshape((28, 28))
-
-    # Display the image using matplotlib
-    plt.imshow(image, cmap='gray')
-    plt.title(f"MNIST mouth")
-    plt.show()
     return
 
 
