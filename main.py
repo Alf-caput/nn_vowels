@@ -16,6 +16,7 @@ def main():
 
 def facial_capture(loaded_model, vowels, face_detector, mouth_detector, file_path=0):
     capture = cv2.VideoCapture(file_path)
+    text = '-'
     while capture.isOpened() and cv2.waitKey(1) not in (ord('s'), ord('S')):  # While 's' or 'S' not pressed
         read_successfully, main_frame = capture.read()
         if read_successfully:
@@ -29,11 +30,11 @@ def facial_capture(loaded_model, vowels, face_detector, mouth_detector, file_pat
                     prediction = np.argmax(loaded_model.predict(target), axis=1)[0]
                     print("Mi predicción es:", vowels[prediction])
                     text = vowels[prediction]
-                    cv2.putText(main_frame, text, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 0), 3)
                 else:
                     print("No mouths found")
             else:
                 print("No faces found")
+            cv2.putText(main_frame, text, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 0), 3)
             cv2.imshow('Captura', main_frame)
         else:
             print("Read unsuccessful")
