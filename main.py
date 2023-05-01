@@ -16,7 +16,7 @@ def main():
 
 def facial_capture(loaded_model, vowels, face_detector, mouth_detector, file_path=0):
     capture = cv2.VideoCapture(file_path)
-    text = '-'
+    text = ''
     while capture.isOpened() and cv2.waitKey(1) not in (ord('s'), ord('S')):  # While 's' or 'S' not pressed
         read_successfully, main_frame = capture.read()
         if read_successfully:
