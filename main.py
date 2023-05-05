@@ -34,7 +34,7 @@ def facial_capture(loaded_model, vowels, face_detector, mouth_detector, file_pat
                     print("No mouths found")
             else:
                 print("No faces found")
-            cv2.putText(main_frame, text, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 0), 3)
+            cv2.putText(main_frame, text, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 3)
             cv2.imshow('Captura', main_frame)
         else:
             print("Read unsuccessful")
